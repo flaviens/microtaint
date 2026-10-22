@@ -13,9 +13,9 @@ Five directories, one per run worth keeping.
 ## Unpack first
 
 The bulky evidence is stored compressed, one `.tar.xz` per directory named
-after it. The engine comparison report is 12.7 MB of JSON and the rules
+after it. The engine comparison report is 22.1 MB of JSON and the rules
 TaintInduce synthesised are another 6.2 MB, which xz takes to 1.2 MB and
-0.35 MB together. Summaries, tables and figures are left as they are, so what
+0.34 MB together. Summaries, tables and figures are left as they are, so what
 a reader wants to look at is readable without unpacking anything.
 
 ```sh
