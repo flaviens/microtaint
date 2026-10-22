@@ -86,7 +86,7 @@ Then regenerate the paper's numbers and figures from the report:
 
 ```sh
 uv run python gen_paper_macros.py REPORT.json --overhead ../rq5-overhead/overhead_results.json
-uv run --with matplotlib --with numpy python plot_figures.py REPORT.json ../rq5-overhead/overhead_results.json
+uv run --no-project --python 3.13 --with matplotlib --with numpy python plot_figures.py REPORT.json ../rq5-overhead/overhead_results.json
 ```
 
 The first writes the LaTeX macros the paper's text reads, so the prose and the

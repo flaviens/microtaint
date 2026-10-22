@@ -9,6 +9,11 @@ echo "[*] Setting up virtual environments with uv..."
 . "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/find_uv.sh"
 find_uv || exit 1
 
+# Pinned: the baselines' wheels lag the newest CPython that uv would otherwise
+# pick, and one missing wheel fails the whole setup.  3.13 is the repository's
+# own .python-version.  Maat needs 3.11 and says so below.
+PY=3.13
+
 # 1. Master Orchestrator
 #
 # --allow-existing on every venv below, for the same reason the Pin download and
@@ -17,17 +22,17 @@ find_uv || exit 1
 # "a virtual environment already exists" and `set -e` aborts the whole script on
 # its FIRST step, so a re-run could never get past what it had already done.
 echo "[*] Building Master Env..."
-uv venv --allow-existing .venv_master
+uv venv --allow-existing .venv_master --python "$PY"
 uv pip install --python .venv_master keystone-engine unicorn
 
 # 2. Triton
 echo "[*] Building Triton Env..."
-uv venv --allow-existing .venv_triton
+uv venv --allow-existing .venv_triton --python "$PY"
 uv pip install --python .venv_triton triton-library
 
 # 3. Angr
 echo "[*] Building Angr Env..."
-uv venv --allow-existing .venv_angr
+uv venv --allow-existing .venv_angr --python "$PY"
 uv pip install --python .venv_angr angr
 
 # 4. Maat
@@ -43,7 +48,7 @@ uv pip install --python .venv_maat pymaat
 # review, and nothing in the output said so.
 echo "[*] Building Microtaint Env..."
 repo_root=$(cd "$og_dir/../../.." && pwd)
-uv venv --allow-existing .venv_microtaint
+uv venv --allow-existing .venv_microtaint --python "$PY"
 uv pip install --python .venv_microtaint "$repo_root"
 .venv_microtaint/bin/python -c "
 import importlib.metadata as m
@@ -123,7 +128,7 @@ docker pull "pandare/panda@${PANDA_DIGEST}"
 # replaced by a later `docker pull`.
 docker tag "pandare/panda@${PANDA_DIGEST}" pandare/panda:pinned
 echo "[*] Building PANDA Env..."
-uv venv --allow-existing .venv_panda
+uv venv --allow-existing .venv_panda --python "$PY"
 uv pip install --python .venv_panda pandare
 
 # Pre-fetch PANDA's guest image HERE, not during the benchmark.

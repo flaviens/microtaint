@@ -59,7 +59,7 @@ git checkout --quiet "$TAINTINDUCE_COMMIT"
 # has none that fits, and builds capstone/keystone/unicorn.  There is nothing
 # else to compile: espresso is committed prebuilt (see above).
 echo '[*] Installing dependencies (uv builds capstone, keystone and unicorn here)...'
-uv sync --locked
+uv sync --locked --python 3.13
 
 # Smoke test.  JN ("Just Nibbles") is the fork's 4-bit toy ISA: two 4-bit
 # registers and a 4-bit flag register, so the whole state space is 2^12 and the

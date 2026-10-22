@@ -473,7 +473,7 @@ FIGARGS=()
 [ -n "$RQ2_REPORT" ] && FIGARGS+=(--report "$RQ2_REPORT")
 [ -f "$OUT/overhead_results.json" ] && FIGARGS+=(--overhead "$OUT/overhead_results.json")
 if [ ${#FIGARGS[@]} -gt 0 ]; then
-  ( cd "$HERE/rq2-comparison" && uv run --with matplotlib --with numpy \
+  ( cd "$HERE/rq2-comparison" && uv run --no-project --python 3.13 --with matplotlib --with numpy \
       python plot_figures.py "${FIGARGS[@]}" \
       && mv -f fig_*.pdf "$OUT/" ) \
     >>"$OUT/log.txt" 2>&1 \

@@ -93,7 +93,7 @@ uv run python gen_avalanche_macros.py \
     --out ../reference-runs/run-all-debian12/20260918-121340/avalanche_numbers.tex
 
 cd ../rq2-comparison
-uv run --with matplotlib --with numpy python plot_figures.py \
+uv run --no-project --python 3.13 --with matplotlib --with numpy python plot_figures.py \
     --overhead ../reference-runs/run-all-debian12/20260918-121340/overhead_results.json
 mv fig_overhead.pdf ../reference-runs/run-all-debian12/20260918-121340/
 ```
@@ -188,7 +188,7 @@ The four figures beside it were regenerated from it here and are **pixel for pix
 
 ```sh
 cd ../rq2-comparison
-uv run --with matplotlib --with numpy python plot_figures.py \
+uv run --no-project --python 3.13 --with matplotlib --with numpy python plot_figures.py \
     --report ../reference-runs/rq2-comparison-paper-corpus/report_merged_v3.json
 mv fig_*.pdf ../reference-runs/rq2-comparison-paper-corpus/
 
