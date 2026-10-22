@@ -6,9 +6,6 @@ __pycache__/
 *.bin
 *.elf
 obj-intel64/
-bin/
-ct_test
-dns_bitfield
 out.bin
 *.stderr
 *.stdout
@@ -21,9 +18,9 @@ _*_raw.json
 !results/*.json
 results/_*_raw.json
 # Guests and harnesses the detect_* drivers compile themselves.
-ct_test
 ct_tg
 dns_tg
-dns_bitfield
-bin/
 obj-intel64/
+
+# Prebuilt guests: the baselines' scripts hardcode addresses from these exact
+# static binaries, so they are shipped (see prebuilt.sha256), not rebuilt.
