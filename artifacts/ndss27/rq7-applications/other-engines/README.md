@@ -7,6 +7,13 @@ assertion into a measurement.
 
 The environments are the ones `rq2-comparison/setup_envs.sh` builds.
 
+The guests (`bin/test_constant_time`, `ct_test`, `dns_bitfield`) are shipped
+prebuilt and checked in, with their hashes in `prebuilt.sha256`
+(`sha256sum -c prebuilt.sha256`). The angr, Maat, Triton and PANDA scripts name
+instruction addresses in them, and a static glibc from another toolchain moves
+those addresses, so the drivers use these files and only compile when one is
+missing. Rebuilding with a different gcc will break the hardcoded addresses.
+
 ## Constant time (Table VI)
 
 `../crypto/square_and_multiply/test_constant_time.c`: two square-and-multiply
