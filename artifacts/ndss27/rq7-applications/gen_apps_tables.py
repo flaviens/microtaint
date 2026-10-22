@@ -72,7 +72,9 @@ def collect(results_dir):
     for key, name in TOOLS:
         d = _load(os.path.join(BASELINE_DIR, f'{key}.json'))
         if d is None:
-            print(f'[!] missing {key}.json, its rows are omitted', file=sys.stderr)
+            print(f'[!] missing {key}.json, its rows read n/a', file=sys.stderr)
+            ct.append((name, 'n/a', 'n/a', 'No result'))
+            dns.append((name, 'n/a', 'n/a', 'No result'))
             continue
         gran = _granularity(key, d.get('dns', {}))
 
@@ -198,14 +200,13 @@ def main():
     args = ap.parse_args()
 
     ct, dns = collect(args.results_dir)
-    # A table missing a row is a table that quietly answers a different
-    # question, so refuse rather than emit a short one.
-    if len(ct) != len(TOOLS) + 1:
-        raise SystemExit(
-            f'only {len(ct)} of {len(TOOLS) + 1} engines have results, so these '
-            f'tables would be incomplete.  Run the detect_* scripts in '
-            f'other-engines/ first.',
-        )
+    # An engine without a result keeps its row, marked n/a, so one failing
+    # baseline cannot block the other rows and the gap stays visible.
+    missing = [r[0] for r in ct if r[3] == 'No result']
+    if missing:
+        print(f'[!] no result for {", ".join(missing)}: rows marked n/a. Run '
+              f'the detect_* scripts in other-engines/ to fill them.',
+              file=sys.stderr)
     if args.tex:
         with open(args.tex, 'w') as fh:
             fh.write(as_tex(ct, dns))
