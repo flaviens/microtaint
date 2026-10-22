@@ -11,7 +11,12 @@ LIBDFT_OBJ ?= $(LIBDFT_SRC)/obj-intel64
 CONFIG_ROOT := $(PIN_ROOT)/source/tools/Config
 include $(CONFIG_ROOT)/makefile.config
 
-TOOL_CXXFLAGS += -Wno-deprecated-declarations -Wno-error=non-c-typedef-for-linkage \
+# GCC 14 and later warn about this construct in libdft's headers.  Only a
+# compiler that knows the warning accepts -Wno-error= for it, so ask the one in use.
+CXX ?= g++
+NO_ERROR_TYPEDEF := $(shell $(CXX) -Wno-error=non-c-typedef-for-linkage -x c++ -fsyntax-only /dev/null 2>/dev/null && echo -Wno-error=non-c-typedef-for-linkage)
+
+TOOL_CXXFLAGS += -Wno-deprecated-declarations $(NO_ERROR_TYPEDEF) \
                  -Wno-error -DNO_PINTOOL_LOG -I$(LIBDFT_SRC)
 TOOL_LIBS     += -L$(LIBDFT_OBJ) -ldft
 
