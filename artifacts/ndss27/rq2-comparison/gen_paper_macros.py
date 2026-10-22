@@ -85,7 +85,7 @@ def unsound_families(rep, tool):
     regs = ('RAX', 'RBX', 'RCX', 'RDX')
     mask64 = (1 << 64) - 1
     gran = (rep['metadata'].get('granularity') or {}).get(tool, 'bit')
-    counts = {}
+    counts: dict[str, int] = {}
     for case in rep['results']:
         tr = case['tool_results']
         gt_m = (tr.get('ground_truth') or {}).get('output_taint')
