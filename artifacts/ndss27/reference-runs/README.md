@@ -194,23 +194,23 @@ mv fig_*.pdf ../reference-runs/rq2-comparison-paper-corpus/
 
 uv run python gen_eval_tables.py \
     ../reference-runs/rq2-comparison-paper-corpus/report_1790117350.json \
-    --allow-uncertified \
     --tex ../reference-runs/rq2-comparison-paper-corpus/eval_tables.tex \
     --md  ../reference-runs/rq2-comparison-paper-corpus/eval_tables.md
+
+uv run python gen_paper_macros.py \
+    ../reference-runs/rq2-comparison-paper-corpus/report_1790117350.json \
+    --overhead ../reference-runs/rq2-comparison-paper-corpus/overhead_results.json \
+    --out ../reference-runs/rq2-comparison-paper-corpus/benchmark_numbers.tex
 ```
+
+`overhead_results.json` and `overhead_ladder.json` are the end-to-end overhead run made alongside this report, and `gen_paper_macros.py` reads both for the paper's overhead macros.
+The `benchmark_numbers.tex` beside them is the paper's file.
+The command above writes it identically, except for the four workload-size macros (`numPoolTmpl`, `numPoolClasses`, `numSeqTmpl`, `numSeqClasses`), which the generator leaves to be set by hand.
 
 Figure 6, the overhead one, is not here: it reads the overhead ladder, which has nothing to do with this report, and its reference is in the `--quick` run above.
 
-`--allow-uncertified` is needed, and it is worth saying why.
-A case an engine ERRORED on is not evidence that it is sound on that case, so both generators check what fraction of the corpus each engine actually answered before they will state a soundness figure.
-This report predates that accounting: it records how many cases each engine was compared on and not how many it refused.
-The numbers are almost certainly right, and a re-run on the same corpus gives the same ones with a full answer rate, but this file cannot establish that on its own, so the caveat is written into the bottom of the generated tables rather than dropped.
-`gen_paper_macros.py` applies the same rule and refuses outright, which is why there is no `benchmark_numbers.tex` here.
-
-The seven tables generated from it are not the ones in the accepted paper.
-The paper's `eval_tables.tex` comes from an older and much smaller run: 2003 cases against 9858, a 12 bit oracle budget against 15, and 694 ground-truth-evaluable cases against 3263.
-That is why its microtaint row reads 84.9% bit-exact and 0.9602 Jaccard while this corpus gives 83.8% and 0.9617, and why its unsoundness summary names four `cmov` cases where this corpus finds 29.
-The paper's macros and the paper's tables were generated from different runs.
+The report records how many cases each engine answered, so both generators certify it as it is, with no caveat.
+The paper prints none of the six tables `gen_eval_tables.py` writes from it: they detail what the figures and the text summarise.
 
 ## The TaintInduce comparison
 

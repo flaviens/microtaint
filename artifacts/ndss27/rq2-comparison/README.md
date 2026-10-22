@@ -78,9 +78,9 @@ What to read off the report:
   is maximally precise and useless. Byte-granular engines promote a tainted bit
   to its whole byte; scoring accounts for that, which is why they come out
   sound-but-imprecise rather than unsound.
-- **RQ4** (Figures 4 and 5): p50/p99 per-step latency and throughput. The
-  path-explosion tests and tool startup are excluded; Appendix G gives each
-  tool's timed region, which differ in scope.
+- **RQ4** (Figures 4 and 5): p50/p99/p100 per-step latency and throughput. The
+  path-explosion tests and tool startup are excluded; the paper's §IX-D gives
+  each tool's timed region, which differ in scope.
 
 Then regenerate the paper's numbers and figures from the report:
 
@@ -94,10 +94,9 @@ run cannot drift apart silently. The second writes the figures. Both accept the
 report the paper's numbers came from, which ships in
 [`../reference-runs/rq2-comparison-paper-corpus/`](../reference-runs/rq2-comparison-paper-corpus/)
 after `../reference-runs/extract.sh`, so a reviewer can check the tables and
-figures without waiting three hours first. `gen_paper_macros.py` refuses that
-particular report, because it predates answer-rate accounting and so cannot say
-how many cases each engine declined; the figures and the tables regenerate from
-it, and the four figures come out identical to the paper's.
+figures without waiting three hours first. The macros, the tables and the four
+figures all regenerate from it, and the figures plot the same values as the
+paper's.
 
 The corpus and the masks are fixed by the seed, and the ground truth is an
 enumeration, so the *inputs* are deterministic. The oracle's answers are not,
