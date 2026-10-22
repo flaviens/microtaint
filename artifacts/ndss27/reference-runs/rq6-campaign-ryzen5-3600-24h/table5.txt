@@ -29,7 +29,7 @@ exact regs%  = cases where the engine matched the ground truth on every
 exact flags% = same, on every scored FLAG.  A case counts as bit-exact
                overall only if BOTH hold, which is why one coarse flag
                sinks an otherwise perfect result.
-[tex] /home/jns/Documents/Telecom/PRIM/pcode-taint-engine/artifacts/ndss27/rq6-generalisation/table5/../../reference-runs/rq6-campaign-ryzen5-3600-24h/table5.tex
-[json] /home/jns/Documents/Telecom/PRIM/pcode-taint-engine/artifacts/ndss27/rq6-generalisation/table5/../../reference-runs/rq6-campaign-ryzen5-3600-24h/table5.json
+[tex] artifacts/ndss27/rq6-generalisation/table5/../../reference-runs/rq6-campaign-ryzen5-3600-24h/table5.tex
+[json] artifacts/ndss27/rq6-generalisation/table5/../../reference-runs/rq6-campaign-ryzen5-3600-24h/table5.json
 
 Every ISA produced ground-truth taint, so the zeros above are measurements rather than absences.
