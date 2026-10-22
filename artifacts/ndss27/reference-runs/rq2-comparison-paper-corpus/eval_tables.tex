@@ -9,15 +9,15 @@
         Engine & Sound\,\% & Exact\,\% & Mean Jaccard & Over-bits & Under-bits & Unsound cases \\
         \midrule
         \multicolumn{7}{l}{\emph{bit-precise (compared bit-by-bit)}} \\
-        \textsc{microtaint}\xspace & 100.0 & 83.8 & 0.9617 & 14594 & 0 & 0 \\
-        \textsc{angr}\xspace & 98.7 & 61.6 & 0.8987 & 54918 & 473 & 43 \\
-        \textsc{maat}\xspace & 90.8 & 88.0 & 0.9667 & 595 & 4324 & 300 \\
+        \textsc{microtaint}\xspace & 100.0 & 83.5 & 0.9570 & 20360 & 0 & 0 \\
+        \textsc{angr}\xspace & 98.7 & 52.5 & 0.8718 & 69838 & 473 & 43 \\
+        \textsc{maat}\xspace & 90.8 & 88.0 & 0.9666 & 611 & 4293 & 300 \\
         \midrule
         \multicolumn{7}{l}{\emph{register-level (compared at register granularity)}} \\
-        \textsc{taintgrind}\xspace & 99.0 & 86.1 & --- & 497 & 32 & 32 \\
+        \textsc{taintgrind}\xspace & 99.8 & 87.3 & --- & 483 & 7 & 7 \\
         \textsc{triton}\xspace & 93.7 & 81.7 & --- & 459 & 214 & 206 \\
         \textsc{libdft64}\xspace & 93.6 & 81.1 & --- & 465 & 210 & 210 \\
-        \textsc{panda}\xspace & 85.8 & 29.6 & --- & 3592 & 522 & 464 \\
+        \textsc{panda}\xspace & 66.9 & 20.7 & --- & 3253 & 1284 & 1080 \\
         \bottomrule
     \end{tabular}
 \end{table}
@@ -30,12 +30,12 @@
         \toprule
         Engine & Precision & Recall & F1 \\
         \midrule
-        \textsc{taintgrind}\xspace & 0.9837 & 0.9946 & 0.9891 \\
-        \textsc{maat}\xspace & 0.9961 & 0.9755 & 0.9857 \\
-        \textsc{angr}\xspace & 0.9814 & 0.9746 & 0.9780 \\
-        \textsc{triton}\xspace & 0.9830 & 0.9679 & 0.9754 \\
-        \textsc{libdft64}\xspace & 0.9810 & 0.9648 & 0.9728 \\
-        \textsc{panda}\xspace & 0.8082 & 0.9212 & 0.8610 \\
+        \textsc{taintgrind}\xspace & 0.9841 & 0.9967 & \textbf{0.9903} \\
+        \textsc{maat}\xspace & 0.9957 & 0.9758 & 0.9856 \\
+        \textsc{angr}\xspace & 0.9768 & 0.9805 & 0.9786 \\
+        \textsc{triton}\xspace & 0.9821 & 0.9679 & 0.9750 \\
+        \textsc{libdft64}\xspace & 0.9813 & 0.9660 & 0.9736 \\
+        \textsc{panda}\xspace & 0.7958 & 0.7812 & 0.7884 \\
         \bottomrule
     \end{tabular}
 \end{table}
@@ -48,10 +48,10 @@
         \toprule
         Status & Cases \\
         \midrule
-        Within budget ($k \le 15$) & 3263 \\
-        Skipped ($k > 15$, mean $k = 93.5$, max $k = 256$) & 6595 \\
+        Within budget ($k \le 15$) & 3262 \\
+        Skipped ($k > 15$, mean $k = 93.4$, max $k = 256$) & 6548 \\
         \midrule
-        Total & 9858 \\
+        Total & 9810 \\
         \bottomrule
     \end{tabular}
 \end{table}
@@ -64,9 +64,9 @@
         \toprule
         Engine & Spurious bits / case & Mean Jaccard \\
         \midrule
-        \textsc{maat}\xspace & 0.18 & 0.9667 \\
-        \textsc{microtaint}\xspace & 4.47 & 0.9617 \\
-        \textsc{angr}\xspace & 16.83 & 0.8987 \\
+        \textsc{maat}\xspace & 0.19 & 0.9666 \\
+        \textsc{microtaint}\xspace & 6.24 & 0.9570 \\
+        \textsc{angr}\xspace & 21.41 & 0.8718 \\
         \bottomrule
     \end{tabular}
 \end{table}
@@ -80,12 +80,12 @@
         Engine & Unsound & Modes & Top affected categories (count) \\
         \midrule
         \textsc{microtaint}\xspace & 0 & --- & --- \\
-        \textsc{taintgrind}\xspace & 32 & S, W & cmov\,(29), shlx\,(1), shrd\,(1), shrd\_cl\,(1) \\
+        \textsc{taintgrind}\xspace & 7 & S & cmov\,(4), shlx\,(1), shrd\,(1), shrd\_cl\,(1) \\
         \textsc{angr}\xspace & 43 & S, Q, W & pdep\,(21), pext\,(20), bmi\,(2) \\
         \textsc{triton}\xspace & 206 & S, Q, W & setcc\,(95), partial\_write\_xor8\_keeps\,(10), pext\,(10), chain\,(9), cmpxchg\,(6), div\,(6) \\
         \textsc{libdft64}\xspace & 210 & S, Q, W & setcc\,(95), cmov\,(29), partial\_write\_xor8\_keeps\,(10), pext\,(10), andn\,(6), div\,(6) \\
         \textsc{maat}\xspace & 300 & S, Q, W & lea\,(23), imul2\,(19), chain\,(18), memory\,(17), pext\,(17), idiv\,(16) \\
-        \textsc{panda}\xspace & 464 & S, Q, W & cmov\,(47), lea\,(40), setcc\,(23), imul3\,(15), mov\,(14), add\,(12) \\
+        \textsc{panda}\xspace & 1080 & S, Q, W & cmov\,(77), lea\,(72), setcc\,(65), imul3\,(27), mov\,(25), xchg\,(23) \\
         \bottomrule
     \end{tabular}
 \end{table}
@@ -98,43 +98,13 @@
         \toprule
         Engine & p50 ($\mu$s) & p99 ($\mu$s) & tp/s & tp/s/i \\
         \midrule
-        \textsc{microtaint}\xspace & 9.0 & 580 & 115\,128 & 115\,514 \\
-        \textsc{panda}\xspace & 46.0 & 1\,517 & 21\,926 & 23\,094 \\
-        \textsc{triton}\xspace & 150.0 & 649 & 6\,655 & 7\,115 \\
-        \textsc{maat}\xspace & 435.0 & 4\,978 & 2\,298 & 2\,399 \\
-        \textsc{libdft64}\xspace & 2\,849.0 & 5\,105 & 351 & 366 \\
-        \textsc{taintgrind}\xspace & 3\,482.0 & 7\,841 & 287 & 293 \\
-        \textsc{angr}\xspace & 9\,403.0 & 54\,010 & 106 & 111 \\
+        \textsc{microtaint}\xspace & 11.0 & 655 & 88\,645 & 88\,960 \\
+        \textsc{panda}\xspace & 99.0 & 1\,642 & 10\,051 & 10\,895 \\
+        \textsc{triton}\xspace & 191.0 & 1\,083 & 5\,246 & 5\,624 \\
+        \textsc{maat}\xspace & 594.0 & 8\,106 & 1\,684 & 1\,744 \\
+        \textsc{taintgrind}\xspace & 2\,439.0 & 10\,568 & 410 & 422 \\
+        \textsc{libdft64}\xspace & 5\,036.0 & 9\,400 & 199 & 205 \\
+        \textsc{angr}\xspace & 5\,950.0 & 16\,665 & 168 & 175 \\
         \bottomrule
     \end{tabular}
 \end{table}
-
-\begin{table}[t]
-    \centering
-    \caption{Path-explosion latency scaling (median $\mu$s per test)}
-    \label{tab:pe}
-    \begin{tabular}{lrrrrrr}
-        \toprule
-        Engine & $N{=}9$ & $N{=}17$ & $N{=}25$ & $N{=}33$ & $N{=}41$ & $N{=}49$ \\
-        \midrule
-        \textsc{panda}\xspace & 80 & 40 & 70 & 30 & 310 & 70 \\
-        \textsc{maat}\xspace & 120 & 130 & 110 & 90 & 170 & 120 \\
-        \textsc{triton}\xspace & 170 & 180 & 190 & 180 & 170 & 190 \\
-        \textsc{microtaint}\xspace & 850 & 1\,510 & 1\,830 & 3\,340 & 2\,970 & 3\,690 \\
-        \textsc{libdft64}\xspace & 4\,000 & 3\,020 & 4\,050 & 3\,490 & 5\,240 & 4\,910 \\
-        \textsc{taintgrind}\xspace & 3\,780 & 4\,880 & 5\,330 & 5\,300 & 5\,870 & 5\,540 \\
-        \textsc{angr}\xspace & 97\,000 & 363\,750 & 1\,434\,450 & 10\,645\,490 & 28\,337\,220 & 30\,160\,540 \\
-        \bottomrule
-    \end{tabular}
-\end{table}
-
-% Uncertified: this report cannot account for the cases each
-% engine refused, so its soundness and exactness columns are
-% over a population each engine selected for itself.
-%   microtaint: no answer-rate accounting in this report
-%   triton: no answer-rate accounting in this report
-%   angr: no answer-rate accounting in this report
-%   panda: no answer-rate accounting in this report
-%   maat: no answer-rate accounting in this report
-%   taintgrind: no answer-rate accounting in this report
-%   libdft64: no answer-rate accounting in this report

@@ -128,7 +128,7 @@ Measured on sixteen cores with CPU boost disabled.
 | corpus | cases | time |
 | --- | --- | --- |
 | `--quick` (500 single + 100 sequence) | 600 | 18 min |
-| the paper's corpus (7500 + 1000 + sweep) | 9858 | about 3 h |
+| the paper's corpus (7500 + 1000 + sweep) | 9810 | about 3 h |
 
 This is the most demanding experiment for resources as well as time. It runs
 seven engines at once, and peak memory across a whole `--quick` run was

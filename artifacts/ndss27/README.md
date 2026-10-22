@@ -330,7 +330,7 @@ runs them all in the order below, cheapest first, and writes a verdict line per
 experiment into `results/<timestamp>/SUMMARY.md`.
 
 `--quick` reduces three experiments and leaves the rest alone: RQ2 scores 600
-cases instead of 9858, RQ6 fuzzes 20000 cases per ISA instead of 1000000, and
+cases instead of 9810, RQ6 fuzzes 20000 cases per ISA instead of 1000000, and
 RQ1 runs the fast instruction families only. RQ5, RQ7 and the avalanche
 workloads have no reduced mode and measure exactly what the full run measures.
 That is why a quick run is two hours and a full one is two days.
@@ -349,10 +349,10 @@ how far off is reasonable.
 | claim | experiment | what the paper reports | what a re-run should show |
 | --- | --- | --- | --- |
 | Taint rules can be generated for any instruction, unlike TaintInduce | `rq1-synthesis_vs_inference/run_rq1.sh` | TaintInduce converges on the narrow families only, and not at 64 bits | microtaint synthesises a rule for every instruction attempted (exhaustively evaluated in rq2-6). TaintInduce's failures are timeouts and non-convergence, so their exact count moves with the time budget |
-| microtaint is sound on x86-64, and the other engines are not | RQ2, `rq2-comparison/benchmark.py` | 0 unsound cases for microtaint, over 9858 cases. angr 43, TaintGrind 32, Triton 206, libdft64 210, Maat 300, PANDA 464 | 0 for microtaint, exactly, whatever the corpus. The others are counts, not rates, so they fall with the corpus: `--quick` scores 600 cases, a sixteenth as many, and we measured 1, 0, 16, 7, 21 and 62 for the same six. Compare the shape, not the numbers, and expect engines whose paper counts are close (Triton and libdft64 differ by 2%) to swap places |
-| microtaint is precise | RQ3, same run | 100.0% sound, 83.8% bit-exact, mean Jaccard 0.962 (the accepted version reports 82.4% and 0.953, from an earlier run of the same experiment) | within a point or so of either: a `--quick` run of our own gave 100.0%, 84.9% and 0.949. Sound% must stay at 100 |
+| microtaint is sound on x86-64, and the other engines are not | RQ2, `rq2-comparison/benchmark.py` | 0 unsound cases for microtaint, over 9810 cases. angr 43, TaintGrind 7, Triton 206, libdft64 210, Maat 300, PANDA 1080 | 0 for microtaint, exactly, whatever the corpus. The others are counts, not rates, so they fall with the corpus: `--quick` scores 600 cases, a sixteenth as many, and we measured 1, 0, 16, 7, 21 and 62 for the same six. Compare the shape, not the numbers, and expect engines whose paper counts are close (Triton and libdft64 differ by 2%) to swap places |
+| microtaint is precise | RQ3, same run | 100.0% sound, 83.5% bit-exact, mean Jaccard 0.957 | within a point or so of either: a `--quick` run of our own gave 100.0%, 84.9% and 0.949. Sound% must stay at 100 |
 | microtaint is faster per propagation than every other engine | RQ4, same run | see the two RQ4 figures, Figures 4 and 5 | absolute times are hardware-dependent and will differ. What must hold is that microtaint has the lowest p50 per-step latency of the seven |
-| the overhead is plumbing, not taint propagation | RQ5, `rq5-overhead/` | the taint work is a small part of the total, 18.1x the emulation floor | the ratio is hardware-dependent. Disable CPU boost, or the rungs are not comparable with each other |
+| the overhead is plumbing, not taint propagation | RQ5, `rq5-overhead/` | the taint work is a small part of the total, 19.1x the emulation floor | the ratio is hardware-dependent. Disable CPU boost, or the rungs are not comparable with each other |
 | microtaint is sound across ISAs, with little porting effort | RQ6, `rq6-generalisation/` | no under-taint on any of the five ISAs | zero under-taints. |
 | bit precision finds what byte-granular engines cannot | RQ7, `rq7-applications/` | the DNS case is a false positive for every byte-granular engine | microtaint separates the two fields, the byte-granular engines do not |
 | the same two analyses, on the six compared engines | RQ7, `rq7-applications/other-engines/` | the split is by granularity, not by engine: the three bit-granular engines localise the leak and separate the fields, the four coarser ones do neither | the same split. Each driver writes one `results/<tool>.json` and `gen_apps_tables.py` builds the two tables from them, so the rows are measurements rather than transcriptions |
@@ -435,7 +435,7 @@ the engines, not the magnitudes.
 For comparison, `reference-runs/` holds the full output of runs of our own, so
 a new run can be read against ours without waiting for the long experiments to
 finish. It has four: a whole `--quick --no-baselines` run, the paper's own
-9858-case engine comparison with its four figures regenerated from it, a
+9810-case engine comparison with its four figures regenerated from it, a
 full-tier TaintInduce comparison, and a 24 hour cross-ISA campaign. Its
 [README](./reference-runs/README.md) gives the command that regenerates each
 table and figure from the JSON beside it.

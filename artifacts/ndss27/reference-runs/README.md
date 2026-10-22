@@ -6,7 +6,7 @@ Five directories, one per run worth keeping.
 | --- | --- | --- |
 | `run-all-quick-ryzen7-5700u` | all of them | a whole `--quick` run **with** the baselines: every experiment, every engine |
 | `run-all-debian12/20260918-121340` | RQ5, RQ6 quick, RQ7, avalanche | a whole `--quick --no-baselines` run |
-| `rq2-comparison-paper-corpus` | RQ2, RQ3, RQ4 | the paper's own 9858-case engine comparison |
+| `rq2-comparison-paper-corpus` | RQ2, RQ3, RQ4 | the paper's own 9810-case engine comparison |
 | `rq1-taintinduce` | RQ1 | the full-tier TaintInduce comparison |
 | `rq6-campaign-ryzen5-3600-24h` | RQ6 | a 24 hour, 89.8 million case cross-ISA campaign |
 
@@ -114,7 +114,7 @@ those drivers when the baselines are enabled; this directory predates that, so
 they were run separately and copied in.
 
 That gives `apps_tables.tex` and `apps_tables.md` (the two RQ7 application tables, both matching the paper), `avalanche_numbers.tex` (the category table's macros), `fig_overhead.pdf` (Figure 6) and `ladder_table.tex` and `ladder_table.md` (the appendix's full overhead ladder).
-The ladder is where the note about virtualisation above becomes concrete: every rung is slower than the paper's, `qiling-only` is 48 times native here against 52, and `microtaint-all` is 3674 against 4115.
+The ladder is where the note about virtualisation above becomes concrete: every rung is slower than the paper's, `qiling-only` is 48 times native here against 50, and `microtaint-all` is 3674 against 4108.
 The chain is in the same order and the marginal costs sit in the same places, which is what the rungs are for.
 The other four figures and the seven evaluation tables need the engine comparison, which this run skipped, so they cannot be produced from it.
 
@@ -128,7 +128,7 @@ uv run python table5.py --dir ../../reference-runs/rq6-campaign-ryzen5-3600-24h 
 ```
 
 That gives the cross-ISA table, with the full run printed to `table5.txt`.
-It is a larger campaign than the paper's, 89.8 million cases against 55.2 million, so the percentages are not the paper's and are not meant to be.
+It is the campaign behind the paper's Table IV, 89.8 million cases.
 What carries over is the column that matters: zero under-taints on all five architectures.
 
 ## Running it
@@ -180,20 +180,20 @@ The full `./run-all.sh` takes about two days, dominated by the cross-ISA campaig
 
 ## The engine comparison, on the paper's corpus
 
-`rq2-comparison-paper-corpus.tar.xz` holds `report_merged_v3.json`, the report the paper's Figures 2 to 5 and its benchmark macros were generated from.
-It is 9858 cases at seed 12 (7500 single, 1000 sequence, 1310 sweep, plus the extra suites), scored against the exhaustive oracle, with all seven engines.
-Its unsound counts are the paper's: 0 for microtaint, 32 TaintGrind, 43 angr, 206 Triton, 210 libdft64, 300 Maat, 464 PANDA.
+`rq2-comparison-paper-corpus.tar.xz` holds `report_1790117350.json`, the report the paper's Figures 2 to 5 and its benchmark macros were generated from.
+It is 9810 cases at seed 12 (7500 single, 1000 sequence, 1310 sweep), scored against the exhaustive oracle, with all seven engines.
+Its unsound counts are the paper's: 0 for microtaint, 7 TaintGrind, 43 angr, 206 Triton, 210 libdft64, 300 Maat, 1080 PANDA.
 
 The four figures beside it were regenerated from it here and are **pixel for pixel identical** to the ones in the paper.
 
 ```sh
 cd ../rq2-comparison
 uv run --no-project --python 3.13 --with matplotlib --with numpy python plot_figures.py \
-    --report ../reference-runs/rq2-comparison-paper-corpus/report_merged_v3.json
+    --report ../reference-runs/rq2-comparison-paper-corpus/report_1790117350.json
 mv fig_*.pdf ../reference-runs/rq2-comparison-paper-corpus/
 
 uv run python gen_eval_tables.py \
-    ../reference-runs/rq2-comparison-paper-corpus/report_merged_v3.json \
+    ../reference-runs/rq2-comparison-paper-corpus/report_1790117350.json \
     --allow-uncertified \
     --tex ../reference-runs/rq2-comparison-paper-corpus/eval_tables.tex \
     --md  ../reference-runs/rq2-comparison-paper-corpus/eval_tables.md
