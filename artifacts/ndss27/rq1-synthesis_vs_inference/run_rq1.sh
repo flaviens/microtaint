@@ -55,7 +55,7 @@ holdout_states=32
 # scorer's own process.  The inference seed is best-effort only -- observation
 # generation runs across a process pool and each worker draws from an RNG state
 # it inherited at fork, so the training set moves a little between runs and
-# between machines.  Verdicts do not move; flow counts do.  See README, Traps.
+# between machines.  Verdicts do not move; flow counts do.
 infer_seed=1
 holdout_seed=1000
 

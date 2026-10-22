@@ -5,6 +5,8 @@ is that this does not converge where microtaint's synthesis does: carry chains,
 flags, and wide operands, where the observations needed to pin the rule down grow
 faster than they can be collected.
 
+This experiment does not run microtaint, RQ2-6 are the ones that evaluate its precision and soundness claims.
+
 ## Which TaintInduce
 
 There is none left. The original
