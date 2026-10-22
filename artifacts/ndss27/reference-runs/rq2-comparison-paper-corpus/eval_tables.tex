@@ -2,11 +2,11 @@
 
 \begin{table}[t]
     \centering
-    \caption{Soundness and precision against exhaustive ground truth}
+    \caption{Soundness and precision against exhaustive ground truth. Over and Under are bits for the bit-precise engines and registers for the register-level ones.}
     \label{tab:soundness}
     \begin{tabular}{lrrrrrr}
         \toprule
-        Engine & Sound\,\% & Exact\,\% & Mean Jaccard & Over-bits & Under-bits & Unsound cases \\
+        Engine & Sound\,\% & Exact\,\% & Mean Jaccard & Over & Under & Unsound cases \\
         \midrule
         \multicolumn{7}{l}{\emph{bit-precise (compared bit-by-bit)}} \\
         \textsc{microtaint}\xspace & 100.0 & 83.5 & 0.9570 & 20360 & 0 & 0 \\
