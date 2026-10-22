@@ -14,6 +14,7 @@ cannot separate QR from OPCODE -> byte-granularity false positive (like libdft).
 from __future__ import annotations
 
 import base64
+import functools
 import json
 import os
 import shutil
@@ -27,6 +28,10 @@ RESULTS = HERE / 'results'
 # Tagged from a digest-pinned pull by rq2-comparison/setup_envs.sh, so this
 # names one fixed image rather than whatever :latest is today.
 CONTAINER = 'pandare/panda:pinned'
+#: setup_envs.sh fetches the guest image into this docker volume, and
+#: rq2-comparison/benchmark.py mounts the same one.  A host ~/.panda is the
+#: fallback for a machine where PANDA was set up by hand.
+QCOW_VOLUME = 'panda_qcows'
 QCOW_DIR = Path(os.path.expanduser('~/.panda'))
 
 CT_BIN = 'bin/test_constant_time'
@@ -79,6 +84,20 @@ def build_guests() -> str:
     return ''
 
 
+@functools.cache
+def _qcow_mount() -> str:
+    """The -v source that holds the guest image, or '' if there is none."""
+    probe = subprocess.run(
+        ['docker', 'run', '--rm', '-v', f'{QCOW_VOLUME}:/root/.panda', CONTAINER,
+         'sh', '-c', 'ls /root/.panda/*.qcow2'],
+        capture_output=True, text=True)
+    if probe.returncode == 0 and probe.stdout.strip():
+        return QCOW_VOLUME
+    if QCOW_DIR.exists() and list(QCOW_DIR.glob('*.qcow2')):
+        return str(QCOW_DIR)
+    return ''
+
+
 def preflight() -> str:
     if shutil.which('docker') is None:
         return 'docker CLI not found on PATH'
@@ -86,16 +105,15 @@ def preflight() -> str:
                           capture_output=True, text=True)
     if not imgs.stdout.strip():
         return f'container image {CONTAINER} not present'
-    qcows = list(QCOW_DIR.glob('*.qcow2')) if QCOW_DIR.exists() else []
-    if not qcows:
-        return f'no x86_64 qcow guest under {QCOW_DIR}'
+    if not _qcow_mount():
+        return f'no x86_64 qcow guest in the {QCOW_VOLUME} volume or under {QCOW_DIR}'
     return ''
 
 
 def run_container(worker_rel: str, args: list[str]) -> dict:
     cmd = [
         'docker', 'run', '--rm',
-        '-v', f'{QCOW_DIR}:/root/.panda',
+        '-v', f'{_qcow_mount()}:/root/.panda',
         '-v', f'{HERE}:/work',
         '-w', '/work',
         CONTAINER, 'python3', worker_rel, *args,
