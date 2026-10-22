@@ -151,7 +151,7 @@ def provenance(isa):
         'oracle': 'HardenedGTSim (two-polarity flip union, context-restore '
                   'per run, memory reset, instruction-count completion hook)',
         'started': time.strftime('%Y-%m-%dT%H:%M:%S'),
-        # The HARNESS, not just the engine.  Every number in Table 5 is defined
+        # The HARNESS, not just the engine.  Every number in Table IV is defined
         # by this code, and recording only what was measured while saying
         # nothing about what did the measuring is how a campaign becomes
         # unreproducible after the fact.
@@ -545,7 +545,7 @@ def main():  # noqa: C901
                     m['gt_bits'] += gtb
                     m['mt_bits'] += mtb
                     m['over_bits'] += ovb
-                    # Table 5's over-taint column is the MEAN tainted-to-minimum
+                    # Table IV's over-taint column is the MEAN tainted-to-minimum
                     # bit ratio, which is a mean of PER-CASE ratios and cannot be
                     # recovered from the summed bits afterwards: sum(mt)/sum(gt)
                     # weights big-taint cases more heavily and gives a different

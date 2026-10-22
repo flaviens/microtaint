@@ -31,7 +31,7 @@ by what it lands on, because the two kinds mean different things: spurious flows
 onto *flag* bits are the ZF/PF ceiling of the paper's Case 3 (a DNF over the
 input bits cannot say "only when the result is zero" without becoming
 exponential, so the inference emits an unconditional flow), while spurious flows
-onto *data* bits are ordinary imprecision.  Table 3's "correct" is the first
+onto *data* bits are ordinary imprecision.  Table III's "correct" is the first
 case: no dependency missed, over-approximation confined to flags.
 
 Usage:
@@ -835,7 +835,7 @@ def main():
     elif counts['over_data'] > 0:
         verdict = 'sound, over-taints data'
     elif counts['over'] > 0:
-        # Only flag bits are over-tainted.  Table 3 calls these families correct:
+        # Only flag bits are over-tainted.  Table III calls these families correct:
         # every real dependency is present and the dependency structure on the
         # data path is exact.
         verdict = 'correct (over-taints flags)'

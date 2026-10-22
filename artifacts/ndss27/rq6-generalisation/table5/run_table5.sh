@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Table 5: the cross-ISA soundness and precision campaign.
+# Table IV: the cross-ISA soundness and precision campaign.
 #
 #   ./run_table5.sh <hours>        all five ISAs in parallel, until the deadline
 #   ./run_table5.sh 12             the paper's scale (about 55M cases)

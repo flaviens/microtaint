@@ -1,5 +1,5 @@
 #!/bin/bash
-# RQ1: run TaintInduce over the behaviour families of the paper's Table 3 and
+# RQ1: run TaintInduce over the behaviour families of the paper's Table III and
 # score every rule it produces against a held-out ground truth.
 #
 #   ./run_rq1.sh --quick   the families that finish fast, about 13 minutes
@@ -140,7 +140,7 @@ PYSUM
 echo "[*] Results will land in $out"
 
 # ---------------------------------------------------------------------------
-# The behaviour families of Table 3.  Any ISA-agnostic rule inducer has to
+# The behaviour families of Table III.  Any ISA-agnostic rule inducer has to
 # handle all of them; they are ordered here from the ones TaintInduce recovers
 # to the ones it does not.
 # ---------------------------------------------------------------------------

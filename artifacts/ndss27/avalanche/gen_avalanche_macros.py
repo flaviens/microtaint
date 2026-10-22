@@ -1,9 +1,9 @@
-"""Emit every Table 6 number as a LaTeX macro, so prose and measurement agree.
+"""Emit every Table V number as a LaTeX macro, so prose and measurement agree.
 
     python gen_avalanche_macros.py base64.json nftables.json siphash.json \
         --out ../../../paper/avalanche_numbers.tex
 
-Table 6 and the three observations around it were hand-written percentages.  The
+Table V and the three observations around it were hand-written percentages.  The
 category profile, the exactly-handled range, the data and flag shares and the
 sample sizes all move whenever the engine's taxonomy or approximation set moves,
 and a hand-written number cannot move with them.  That is how "84--100%" and
@@ -17,7 +17,7 @@ import os
 
 #: Categories the paper calls exactly handled.
 EXACT_CATS = ('Mapped', 'Transportable', 'Translatable', 'Monotonic')
-#: Order of the rows in Table 6.
+#: Order of the rows in Table V.
 ROW_CATS = ('Mapped', 'Transportable', 'Translatable', 'Monotonic',
             'Transportable (Eq)', 'Weldable', 'Avalanche')
 #: LaTeX-safe short name per workload.

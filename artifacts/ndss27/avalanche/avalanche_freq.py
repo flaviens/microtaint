@@ -693,7 +693,7 @@ def main():
             print(f'   {n:8,d}  {k}')
         print('   (the classifier calls an instruction Avalanche while its tree')
         print('    emits no approximating node, or vice versa -- the two halves of')
-        print('    Table 6 are answering different questions for these)')
+        print('    Table V are answering different questions for these)')
 
     if args.json_out:
         blob = {
@@ -731,7 +731,7 @@ def main():
               'percentages are\nnot over the population they claim.')
         return 1
     # A run in which NOTHING was tainted has no failures either, and printed
-    # exactly this line.  Table 6's producer must not certify a table computed
+    # exactly this line.  Table V's producer must not certify a table computed
     # over an empty population.
     if not STATS['insns_tainted'] or not STATS['total_out_bits']:
         print('\nREFUSING TO CERTIFY: the run tainted '

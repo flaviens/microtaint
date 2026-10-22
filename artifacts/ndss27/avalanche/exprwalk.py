@@ -30,7 +30,7 @@ EvalContext = _ast.EvalContext
 
 #: Node types that OVER-APPROXIMATE, by the engine's own documentation.
 #:
-#: This used to be just the two avalanche nodes, which is why Table 6 drifted:
+#: This used to be just the two avalanche nodes, which is why Table V drifted:
 #: two commits (4731f08, f3f52bb) moved multiply and variable-shift OUT of the
 #: blanket fallback into dedicated terms, so their over-approximation stopped
 #: being counted while `determine_category` still called them Avalanche.  The

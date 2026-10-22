@@ -10,7 +10,7 @@ It matters because `imul -> 100%` is a direct probe of whether avalanche is
 visible at all, and imul's taint runs through `VariableMultiplyTaintExpr` --
 one of the seven node types the old attribution treated as an opaque leaf with
 "no avalanche inside".  Had this gate existed, it would have failed the day that
-node type landed instead of quietly lowering Table 6.
+node type landed instead of quietly lowering Table V.
 
 Run:  uv run --project <engine> python calibrate.py
 """
@@ -160,7 +160,7 @@ def main() -> int:
 
     if bad:
         print(f'\nCALIBRATION FAILED on {bad} case(s): the attribution does not '
-              'reproduce answers that are known independently, so any Table 6 it '
+              'reproduce answers that are known independently, so any Table V it '
               'produces is unverified.')
         return 1
     print('\nCALIBRATION PASSED: the attribution reproduces every known answer.')

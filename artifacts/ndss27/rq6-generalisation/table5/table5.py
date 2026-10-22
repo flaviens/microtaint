@@ -11,7 +11,7 @@
 # Experiment script, not library code: see artifacts/ndss27/README.md,
 # "Lint and type checking", for why annotations are not required here.
 # mypy: disable-error-code="no-untyped-def, no-untyped-call, type-arg, no-any-return, var-annotated, assignment, index, arg-type, union-attr, operator, attr-defined, misc, call-overload, return-value, unreachable"
-"""Generate Table 5 (cross-ISA soundness and precision) from the campaign shards.
+"""Generate Table IV (cross-ISA soundness and precision) from the campaign shards.
 
 Columns, and where each comes from:
 

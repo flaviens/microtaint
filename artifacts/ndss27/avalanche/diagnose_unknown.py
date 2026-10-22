@@ -1,7 +1,7 @@
 """Why does the avalanche harness ever say 'Unknown'?
 
 avalanche_freq.py swallows FOUR exceptions, each of which silently distorts
-Table 6:
+Table V:
 
   1. determine_category() raising           -> label 'Unknown'
   2. CAT_BY_ID.get(id(a)) missing           -> label 'Unknown'

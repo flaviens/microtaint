@@ -39,7 +39,7 @@ import time
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-# Honour $MT_ENGINE_ROOT here too.  Only the Table 5 campaign read it, so this
+# Honour $MT_ENGINE_ROOT here too.  Only the table5 campaign read it, so this
 # pass -- the one run-all.sh actually runs for RQ6 -- always measured whatever
 # microtaint happened to be importable, no matter which engine the reviewer
 # pinned.  Must run before `import microtaint` below.
@@ -54,7 +54,7 @@ if _ENGINE_ROOT:
 
 import multiarch_oracle as O
 
-# Which flags an instruction's lift actually DEFINES.  Reused from the Table 5
+# Which flags an instruction's lift actually DEFINES.  Reused from the table5
 # harness that ships beside this one rather than reimplemented: it detects the
 # architecturally-UNDEFINED cases structurally, including the nasty one where
 # SLEIGH lifts an undefined flag by writing its own previous value back (x86
@@ -220,7 +220,7 @@ _DEFINED_FLAGS: dict[tuple, frozenset] = {}
 
 
 class _FlagName:
-    """Minimal stand-in for the Table 5 Flag type: written_flags reads `.name`."""
+    """Minimal stand-in for the table5 Flag type: written_flags reads `.name`."""
 
     __slots__ = ('name',)
 
@@ -229,7 +229,7 @@ class _FlagName:
 
 
 class _FlagShim:
-    """Minimal stand-in for the Table 5 ISA type, for written_flags only."""
+    """Minimal stand-in for the table5 ISA type, for written_flags only."""
 
     __slots__ = ('flags', 'mt_arch')
 
@@ -245,7 +245,7 @@ def defined_flags(b: Bench, code: bytes) -> frozenset:
     key = (b.label, code)
     got = _DEFINED_FLAGS.get(key)
     if got is None:
-        # written_flags() expects the Table 5 ISA shape: `mt_arch` as the
+        # written_flags() expects the table5 ISA shape: `mt_arch` as the
         # Architecture NAME and `flags` as objects with `.name`.  A Bench has
         # neither, so passing it raised, the except swallowed it, and every
         # instruction came back with NO defined flags -- which silently disabled
@@ -598,7 +598,7 @@ def main():
             # from this pass therefore means "0 in the destination GPR", which
             # matters because flag carries were this project's entire x86 bug
             # class.  Flags ARE scored, on all five ISAs and with the
-            # undefined-flag exclusions that requires, by the Table 5 campaign
+            # undefined-flag exclusions that requires, by the table5 campaign
             # in table5/; this pass is the fast smoke gate, not that experiment.
             _fl = [n for n, _ in b.flag_regs]
             print(f'[{b.label}]   SCOPE: comparing {len(b.regs)} GPR(s) '

@@ -250,7 +250,7 @@ build_guest 'avalanche base64'       avalanche/base64              make
   build_guest 'rq5 ladder_hooks.so' rq5-overhead gcc -O2 -fPIC -shared -o ladder_hooks.so ladder_hooks.c
 
 # ------------------------------------------------------------------ avalanche
-# Table 6.  Cheap, and it exercises the whole lifting path, so it fails fast.
+# Table V.  Cheap, and it exercises the whole lifting path, so it fails fast.
 run avalanche-calibrate avalanche uv run python calibrate.py \
     --json-out "$OUT/avalanche_calibrate.json"
 # THREE base64 columns, because the binary decides the answer and the spread
@@ -414,7 +414,7 @@ log 'paper macros'
 # workloads and would then count base64 three times.
 # The calibration gate's own output, when this run produced it: it carries the
 # percentages the method paragraph quotes.  Optional, so a --quick run that
-# skipped the gate still gets the Table 6 macros.
+# skipped the gate still gets the Table V macros.
 AVL_CAL=''
 [ -f "$OUT/avalanche_calibrate.json" ] && AVL_CAL="$OUT/avalanche_calibrate.json"
 
