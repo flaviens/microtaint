@@ -243,12 +243,12 @@ def main() -> int:
 
     (RESULTS / 'panda.json').write_text(json.dumps(out, indent=2))
     ct_ok, dns_ok = bool(out['ct'].get('ran')), bool(out['dns'].get('ran'))
-    print(f"[panda] CT {'vuln=%s ct=%s' % (out['ct'].get('vuln_branch_leaks'),
-                                           out['ct'].get('ct_branch_leaks'))
-                 if ct_ok else 'DID NOT RUN'} | "
-          f"DNS {'out_tainted=%s (byte-granular)' % out['dns'].get('output_tainted')
-                if dns_ok else 'DID NOT RUN'} "
-          f"-> {RESULTS / 'panda.json'}")
+    ct_txt = ('vuln=%s ct=%s' % (out['ct'].get('vuln_branch_leaks'),
+                                 out['ct'].get('ct_branch_leaks'))
+              if ct_ok else 'DID NOT RUN')
+    dns_txt = ('out_tainted=%s (byte-granular)' % out['dns'].get('output_tainted')
+               if dns_ok else 'DID NOT RUN')
+    print(f"[panda] CT {ct_txt} | DNS {dns_txt} -> {RESULTS / 'panda.json'}")
     # Exiting 0 on a half-run told the caller the comparison was made.
     if not (ct_ok and dns_ok):
         for name, ok, blob in (('CT', ct_ok, out['ct']), ('DNS', dns_ok, out['dns'])):
